@@ -2,43 +2,50 @@
   <view class="select-hospital-list" style="height: 100vh;">
     <at-list hospital-list>
         <at-list-item class="hospital-list-item"
-          v-for="(item, index) in hospitalList" key="index"
+          v-for="(item, index) in hospitalList" :key="index"
          :title="item.hospitalName"
          arrow="right"
          extraText="详情"
-         @click="clickItem(item.hospitalId)"
+         @click="clickItem(index)"
         />
     </at-list>
     <at-float-layout class="at-float-layout"
      :isOpened="showWindow"
-     title="测试一下"
-     @close="close"
+     title="医院详情"
+     @close="closeWindow"
     >
-    这是内容
+      <hospital-info-detail class="hospital-info-detail"
+                            :hospitalInfo="selectHospital"
+                            @selected="closeWindowAndBack"
+      />
     </at-float-layout>
   </view>
 
 </template>
 
 <script>
+import Taro from '@tarojs/taro'
 import { fetchApi } from '@/http/fetchApi'
 
-import { AtList, AtListItem, AtFloatLayout  } from 'taro-ui-vue3'
+import { AtList, AtListItem, AtFloatLayout } from 'taro-ui-vue3'
+import hospitalInfoDetail from "@/components/hospitalInfoDetail/hospitalInfoDetail.vue";
 
 export default {
   name: 'SelectHospital',
   data() {
     return {
       hospitalList: [],
+      selectHospital: null,
       showWindow: false,
     }
   },
   components:{
     AtList,
     AtListItem,
-    AtFloatLayout
+    AtFloatLayout,
+    hospitalInfoDetail,
   },
-  methods: {  
+  methods: {
     fetchApi,
     async init() {
       let response = await fetchApi('queryHospitalList')
@@ -49,13 +56,20 @@ export default {
       } else {
         this.hospitalList = []
       }
-      console.log(this.hospitalList[0].hospitalName)   
+      console.log(this.hospitalList[0])
     },
-    clickItem(value) {
+    clickItem(index) {
       this.showWindow = true;
+      this.selectHospital = this.hospitalList.at(index)
     },
-    close() {
+    closeWindow() {
       this.showWindow = false;
+    },
+    closeWindowAndBack() {
+      this.showWindow = false;
+      Taro.navigateBack({
+        delta:1
+      })
     }
   },
   created() {
@@ -67,6 +81,6 @@ export default {
 
 <style>
 .at-float-layout {
-  
+
 }
 </style>

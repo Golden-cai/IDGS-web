@@ -2,21 +2,21 @@ const appStore = {
     state () {
       return {
         isLogin: false,
-        choseHospital: null
+        selectHospital: null
       }
     },
     getters: {
-      doSomeThing (state) {
-
+      getHospital(state) {
+        return state.selectHospital
       }
     },
     mutations: {
-      increment (state, payload) {
-        state.count += payload
+      selectHospital (state, payload) {
+        state.selectHospital = payload
       }
     },
     actions: {
-      
+
     }
   }
 

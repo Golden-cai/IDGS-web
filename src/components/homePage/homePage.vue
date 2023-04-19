@@ -1,14 +1,14 @@
 <template>
   <view class="home-page">
-    <at-button 
-      v-if="isChooseHospital"
+    <at-button
+      v-if="getHospitalStatus"
       type="primary"
       @click="chooseHospital"
       >
       {{ buttonInfo }}
     </at-button>
     <at-search-bar class="search-bar"
-    v-model:value="value" 
+    v-model:value="value"
     placeholder="搜索医生"
     @action-click="searchInfo"
      />
@@ -63,7 +63,7 @@ export default {
 
   data() {
     return {
-      isChooseHospital:true,
+      isChooseHospital:false,
       buttonInfo:'请选择医院',
       current: 0,
       duration: 500,
@@ -76,7 +76,7 @@ export default {
         'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         'https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180',
       ],
-      value:'1',
+      value:'',
       grids:[
         {
           image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
@@ -106,7 +106,12 @@ export default {
     AtGrid,
     AtIcon,
     AtButton
-},
+  },
+  computed:{
+    getHospitalStatus() {
+      return this.$store.getters.getHospital === null;
+    }
+  },
   methods:{
     searchInfo() {
       console.log(swiperConfig)
@@ -119,8 +124,14 @@ export default {
       Taro.navigateTo({
           url: '/pages/selectHospital/selectHospital',
       })
+    },
+    watch:{
+      'this.$store.getters.getHospital': function (newValue) {
+        Taro.setNavigationBarTitle({
+          title: newValue.hospitalName
+        })
+      }
     }
-  }
-
+  },
 }
 </script>
