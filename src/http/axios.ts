@@ -1,23 +1,34 @@
-
 //对axios进行二次封装,将刚才下载好的axios导入进来
 import axios from "taro-axios";
-
 
 //2. 利用axios对象的方法create,去创建一个axios实例
 //requests就是axios,只不过稍微配置一下
 
 const instance = axios.create({
-    //基础路径
-    baseURL: 'http://192.168.1.103:8080', // 所有请求的公共地址部分
     timeout: 3000 // 请求超时时间,这里的意思是当请求时间超过5秒还未取得结果时,提示用户请求超时
 })
+
+
+switch(process.env.NODE_ENV){
+    // 生产环境，部署到服务器上的环境
+    case 'production':
+    instance.defaults.baseURL='http://localhost:8080';
+    break;
+    //设置测试环境的接口地址
+     case 'development':
+    instance.defaults.baseURL='http://192.168.1.103:8080';
+    break;
+    //开发环境接口地址
+    default:
+    instance.defaults.baseURL='http://localhost:8080'
+}
 
 
 // 请求拦截处理 请求拦截 在请求拦截中可以补充请求相关的配置
 // interceptors axios的拦截器对象
 instance.interceptors.request.use(config => {
     // config 请求的所有信息
-    // console.log(config);
+    console.log(config);
     // 响应成功的返回
     return config // 将配置完成的config对象返回出去 如果不返回 请求讲不会进行
 }, err => {

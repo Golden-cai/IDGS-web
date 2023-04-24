@@ -1,6 +1,6 @@
 <template>
   <view class="select-hospital-list" style="height: 100vh;">
-    <at-list hospital-list>
+    <at-list class="hospital-list">
         <at-list-item class="hospital-list-item"
           v-for="(item, index) in hospitalList" :key="index"
          :title="item.hospitalName"
@@ -68,7 +68,7 @@ export default {
     closeWindowAndBack() {
       this.showWindow = false;
       Taro.navigateBack({
-        delta:1
+        delta: 1
       })
     }
   },
@@ -80,7 +80,5 @@ export default {
 </script>
 
 <style>
-.at-float-layout {
 
-}
 </style>
