@@ -20,7 +20,7 @@ switch(process.env.NODE_ENV){
     break;
     //开发环境接口地址
     default:
-    instance.defaults.baseURL='http://localhost:8080'
+    instance.defaults.baseURL='http://192.168.1.103:8080'
 }
 
 

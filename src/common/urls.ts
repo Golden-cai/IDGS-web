@@ -10,6 +10,12 @@ const urls = {
         path: '/controller/hospital/query-all-department/',
         method: 'get',
         params: '',
+    },
+    // 查询科室下的班次信息
+    queryDoctorShifts: {
+      path: '/controller/shifts/query-all-shifts/',
+      method: 'get',
+      params: '',
     }
 
 }

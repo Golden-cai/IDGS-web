@@ -91,7 +91,7 @@ const searchDoctorInfo = () => {
 }
 
 const execFunction = (item) => {
-  Taro.navigateTo({
+   Taro.navigateTo({
     url: item.url,
   })
 }
