@@ -12,7 +12,7 @@ const instance = axios.create({
 switch(process.env.NODE_ENV){
     // 生产环境，部署到服务器上的环境
     case 'production':
-    instance.defaults.baseURL='http://localhost:8080';
+    instance.defaults.baseURL='http://192.168.1.103:8080';
     break;
     //设置测试环境的接口地址
      case 'development':

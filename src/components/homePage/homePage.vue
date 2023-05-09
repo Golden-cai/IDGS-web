@@ -69,7 +69,7 @@ onMounted(()=>{
 const store = useStore()
 
 const isSelectedHospital = computed(() => {
-  return store.state.selectedHospital === null
+  return store.state.selectedHospital.hospitalName === ''
 })
 
 const state = reactive({

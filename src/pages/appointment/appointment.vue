@@ -56,6 +56,9 @@ import { AtSegmentedControl, AtTabs, AtTabsPane } from 'taro-ui-vue3'
 import DoctorShiftsDetail from "@/components/doctorShiftsDetail/doctorShiftsDetail.vue";
 import { fetchApi } from "@/http/fetchApi";
 import { week } from "../../common/common";
+import { useStore } from "vuex";
+
+const store = useStore()
 
 const departmentId = ref('')
 const modeTab = reactive(['日期排班', '医生排班'])
@@ -99,8 +102,7 @@ onMounted(()=> {
 })
 
 const init = () => {
-  departmentId.value = Taro.getCurrentInstance().router.params.departmentId
-  console.log(departmentId.value)
+  departmentId.value = store.state.order.department.departmentId
   // 获取当前时间
   let date = new Date()
   // 获取一周的时间
@@ -114,7 +116,7 @@ const init = () => {
 
 const setTitle = () => {
   Taro.setNavigationBarTitle({
-    title: Taro.getCurrentInstance().router.params.departmentName
+    title: store.state.order.department.departmentItemName
   })
 }
 

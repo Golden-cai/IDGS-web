@@ -16,7 +16,20 @@ const urls = {
       path: '/controller/shifts/query-all-shifts/',
       method: 'get',
       params: '',
-    }
+    },
+   // 登录获取用户信息
+   login: {
+     path: '/controller/user/query-user-info/',
+     method: 'get',
+     params: '',
+   },
+  // 创建订单
+  createOrder: {
+    path: '/controller/order/create-order',
+    method: 'post',
+    params: '',
+  }
+
 
 }
 

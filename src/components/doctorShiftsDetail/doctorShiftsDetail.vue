@@ -19,10 +19,7 @@
         <shifts class="doctor-shifts-list"
                 v-for="(item, index) in ShiftsList"
                 :key="index"
-                :time="item.shiftsTime"
-                :price="item.shiftsAmount"
-                :remain="item.shiftsRemainNumber"
-                :total="item.shiftsTotalNumber"
+                :shifts="item"
                 @submit="submit"
         />
       </at-card>
@@ -34,6 +31,9 @@ import { AtAvatar, AtRate, AtCard, AtCurtain  } from 'taro-ui-vue3'
 import Shifts from "./shifts.vue";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import { useStore } from "vuex";
+
+const store = useStore()
 
 const prop = defineProps({
         doctorInfo: Object,
@@ -55,7 +55,9 @@ const closeWindow = () => {
   isOpened.value = false;
 }
 
+
 const submit = () => {
+  store.commit('updateDoctor', prop.doctorInfo)
   Taro.navigateTo({
     url: '/pages/createOrder/createOrder',
   })

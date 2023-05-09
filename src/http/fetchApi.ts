@@ -6,7 +6,7 @@ export const  fetchApi = (name, params=null, pathParam = '') => {
   return instance({
     method: url.method,
     url: url.path + pathParam,
-    params
+    data: params
   })
 
   // let url = urls[router]
